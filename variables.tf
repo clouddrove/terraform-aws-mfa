@@ -1,13 +1,17 @@
 
 variable "name" {
-  type = string
+  type        = string
+  description = "Name  (e.g. `test` or `mfa`)."
 }
 variable "path" {
-  type    = string
-  default = "/"
+  type        = string
+  default     = "/"
+  description = "The path of the policy in MFA."
 }
 variable "Policy" {
-  type = any
+  type        = any
+  description = "The policy in json"
+  default     = ""
 }
 variable "attributes" {
   type        = list(any)
