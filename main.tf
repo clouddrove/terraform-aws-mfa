@@ -2,9 +2,8 @@
 #Module      : Labels
 #Description : Terraform module to create consistent naming for multiple names.
 module "labels" {
-  source  = "clouddrove/labels/aws"
-  version = "0.15.0"
-
+  source      = "clouddrove/labels/aws"
+  version     = "0.15.0"
   name        = var.name
   environment = var.environment
   attributes  = var.attributes

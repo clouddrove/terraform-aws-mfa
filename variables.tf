@@ -10,8 +10,8 @@ variable "path" {
 }
 variable "Policy" {
   type        = any
-  description = "The policy in json"
   default     = ""
+  description = "The policy in json"
 }
 variable "attributes" {
   type        = list(any)
@@ -44,14 +44,14 @@ variable "managedby" {
 }
 
 variable "groups" {
-  description = "enable MFA for the members in these groups"
   type        = list(string)
   default     = []
+  description = "enable MFA for the members in these groups"
 }
 
 variable "users" {
-  description = "enable MFA for these users"
   type        = list(string)
   default     = []
+  description = "enable MFA for these users"
 }
 
