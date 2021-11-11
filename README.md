@@ -4,11 +4,11 @@
 
 
 <h1 align="center">
-    Terraform AWS Security Hub
+    Terraform AWS MFA
 </h1>
 
 <p align="center" style="font-size: 1.2rem;"> 
-    This terraform module creates security-hub.
+    This terraform module enforce MFA policy creation and enforcing on groups.
      </p>
 
 <p align="center">
@@ -24,13 +24,13 @@
 </p>
 <p align="center">
 
-<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/clouddrove/terraform-aws-security-hub'>
+<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/clouddrove/terraform-aws-mfa'>
   <img title="Share on Facebook" src="https://user-images.githubusercontent.com/50652676/62817743-4f64cb80-bb59-11e9-90c7-b057252ded50.png" />
 </a>
-<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+AWS+Security+hub&url=https://github.com/clouddrove/terraform-aws-security-hub'>
+<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+AWS+MFA&url=https://github.com/clouddrove/terraform-aws-mfa'>
   <img title="Share on LinkedIn" src="https://user-images.githubusercontent.com/50652676/62817742-4e339e80-bb59-11e9-87b9-a1f68cae1049.png" />
 </a>
-<a href='https://twitter.com/intent/tweet/?text=Terraform+AWS+Security+hub&url=https://github.com/clouddrove/terraform-aws-security-hub'>
+<a href='https://twitter.com/intent/tweet/?text=Terraform+AWS+MFA&url=https://github.com/clouddrove/terraform-aws-mfa'>
   <img title="Share on Twitter" src="https://user-images.githubusercontent.com/50652676/62817740-4c69db00-bb59-11e9-8a79-3580fbbf6d5c.png" />
 </a>
 
@@ -51,7 +51,7 @@ We have [*fifty plus terraform modules*][terraform_modules]. A few of them are c
 
 This module has a few dependencies: 
 
-- [Terraform 0.13](https://learn.hashicorp.com/terraform/getting-started/install.html)
+- [Terraform 0.15](https://learn.hashicorp.com/terraform/getting-started/install.html)
 - [Go](https://golang.org/doc/install)
 - [github.com/stretchr/testify/assert](https://github.com/stretchr/testify)
 - [github.com/gruntwork-io/terratest/modules/terraform](https://github.com/gruntwork-io/terratest)
@@ -65,36 +65,24 @@ This module has a few dependencies:
 ## Examples
 
 
-**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/terraform-aws-security-hub/releases).
+**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/terraform-aws-mfa/releases).
 
 
 ### Simple Example
 Here is an example of how you can use this module in your inventory structure:
 ```hcl
 # use this
-  module "security_hub" {
-  source               = "clouddrove/security-hub/aws"
-  version              = "0.15.0"
-  name                 = "test"
-  security_hub_enabled = true
-
-  #member account add
-  enable_member_account = true
-  member_account_id     = "123344847783"
-  member_mail_id        = "example@mail.com"
-
-  #standards 
-  enabled_standards = [
-    "standards/aws-foundational-security-best-practices/v/1.0.0",
-    "ruleset/cis-aws-foundations-benchmark/v/1.2.0"
-  ]
-  #products
-  enabled_products = [
-    "product/aws/guardduty",
-    "product/aws/inspector",
-    "product/aws/macie"
-  ]
-}
+    module "mfa" {
+    source        = "clouddrove/mfa/aws"
+    version       = "0.15.0"
+    name          = "mfa"
+    environment   = "test"
+    path          = "/"
+    users       = []
+    groups      = []     
+   
+    }
+  
 ```
 
 
@@ -106,23 +94,26 @@ Here is an example of how you can use this module in your inventory structure:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| name | name of module. | `string` | `"test"` | yes |
-| security\_hub\_enabled | set true to enable. | `bool` | `true` | yes |
-| enable\_member\_account | set true to enable. | `bool` | `true` | yes |
-| member\_account\_id | Member account id. | `"string"` | `12347584` | yes |
-| member\_mail\_id | mail id for member account. | `"string"` | `example@mail.com` | yes |
-| enabled\_standards | List of standard | `list(any)` | `[]` | yes |
-| enabled\_products | List of product | `list(any)` | `[]` | yes |
-| label\_order | Label order, e.g. `name`,`application`. | `list(any)` | `[]` | no |
+| Policy | n/a | `any` | n/a | yes |
+| attributes | Additional attributes (e.g. `1`). | `list(any)` | `[]` | no |
+| environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
+| groups | enable MFA for the members in these groups | `list(string)` | `[]` | no |
+| label\_order | label order, e.g. `name`,`application`. | `list(any)` | `[]` | no |
 | managedby | ManagedBy, eg 'CloudDrove'. | `string` | `"hello@clouddrove.com"` | no |
-| name | Name  (e.g. `app` or `cluster`). | `string` | `""` | no |
+| name | n/a | `string` | n/a | yes |
+| path | n/a | `string` | `"/"` | no |
+| repository | Terraform current module repo | `string` | `"https://github.com/clouddrove/terraform-aws-mfa"` | no |
+| users | enable MFA for these users | `list(string)` | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| security\_hub\_ids | IDs on the AWS Security hubs associated with the instance. |
-| tags | A mapping of public tags to assign to the resource. |
+| iam-arn | n/a |
+| tags\_all | n/a |
+
+
+
 
 ## Testing
 In this module testing is performed with [terratest](https://github.com/gruntwork-io/terratest) and it creates a small piece of infrastructure, matches the output like ARN, ID and Tags name etc and destroy infrastructure in your AWS account. This testing is written in GO, so you need a [GO environment](https://golang.org/doc/install) in your system. 
@@ -135,9 +126,9 @@ You need to run the following command in the testing folder:
 
 
 ## Feedback 
-If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/terraform-aws-security-hub/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
+If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/terraform-aws-mfa/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
 
-If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/terraform-aws-security-hub)!
+If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/terraform-aws-mfa)!
 
 ## About us
 
