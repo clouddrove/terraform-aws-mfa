@@ -1,13 +1,17 @@
 
 variable "name" {
-  type = string
+  type        = string
+  description = "Name  (e.g. `test` or `mfa`)."
 }
 variable "path" {
-  type    = string
-  default = "/"
+  type        = string
+  default     = "/"
+  description = "The path of the policy in MFA."
 }
 variable "Policy" {
-  type = any
+  type        = any
+  default     = ""
+  description = "The policy in json"
 }
 variable "attributes" {
   type        = list(any)
@@ -40,14 +44,14 @@ variable "managedby" {
 }
 
 variable "groups" {
-  description = "enable MFA for the members in these groups"
   type        = list(string)
   default     = []
+  description = "enable MFA for the members in these groups"
 }
 
 variable "users" {
-  description = "enable MFA for these users"
   type        = list(string)
   default     = []
+  description = "enable MFA for these users"
 }
 

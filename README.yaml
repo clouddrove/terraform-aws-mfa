@@ -44,8 +44,8 @@ usage: |-
       name          = "mfa"
       environment   = "test"
       path          = "/"
-      users       = []
-      groups      = []     
+      users         = []
+      groups        = []     
      
       }
     
