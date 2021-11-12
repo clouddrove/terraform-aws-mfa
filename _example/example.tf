@@ -7,6 +7,6 @@ module "mfa" {
   environment = "test"
   users       = []
   groups      = []
-  
+
 }
 
