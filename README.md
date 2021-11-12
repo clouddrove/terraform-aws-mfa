@@ -77,7 +77,6 @@ Here is an example of how you can use this module in your inventory structure:
     version       = "0.15.0"
     name          = "mfa"
     environment   = "test"
-    path          = "/"
     users         = []
     groups        = []     
    
