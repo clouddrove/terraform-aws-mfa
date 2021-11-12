@@ -43,7 +43,6 @@ usage: |-
       version       = "0.15.0"
       name          = "mfa"
       environment   = "test"
-      path          = "/"
       users         = []
       groups        = []     
      
