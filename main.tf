@@ -99,6 +99,8 @@ data "aws_iam_policy_document" "enable_mfa" {
       "iam:GetLoginProfile",
       "iam:ListUserTags"
     ]
+
+    #tfsec:ignore:aws-iam-no-policy-wildcards
     resources = ["*"]
   }
 }
