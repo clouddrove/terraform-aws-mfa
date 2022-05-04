@@ -13,7 +13,7 @@ module "labels" {
 
 }
 
-
+#tfsec:ignore:aws-iam-no-policy-wildcards
 resource "aws_iam_policy" "enable_mfa" {
   name        = var.name
   path        = var.path
