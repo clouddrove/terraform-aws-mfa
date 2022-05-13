@@ -26,7 +26,7 @@ resource "aws_iam_policy" "enable_mfa" {
     }
   )
 }
-
+#tfsec:ignore:aws-iam-no-policy-wildcards
 data "aws_iam_policy_document" "enable_mfa" {
 
   statement {
