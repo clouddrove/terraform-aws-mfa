@@ -5,7 +5,7 @@ module "mfa" {
   source      = "../"
   name        = "mfa"
   environment = "test"
-  users       = []
+  users            = []
   groups      = []
 
 }
