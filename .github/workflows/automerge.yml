@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tf-checks: ["tf-lint / tflint", "tfsec / tfsec sarif report", "_example / Check code format"]
+        tf-checks: ["tf-lint / tflint", "tfsec / tfsec sarif report", "basic / Check code format"]
     steps:
       - name: Wait for "${{ matrix.tf-checks }}" to succeed
         uses: lewagon/wait-on-check-action@v1.3.1
@@ -28,4 +28,7 @@ jobs:
           check-name: ${{ matrix.tf-checks }}
           repo-token: ${{ secrets.GITHUB }}
           wait-interval: 30
+
+      - name: check for testing
+        run: ls -la
 ...
