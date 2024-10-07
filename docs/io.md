@@ -19,4 +19,3 @@
 |------|-------------|
 | iam-arn | The ARN assigned by AWS to this policy. |
 | tags\_all | Additional tags e.g. map(`BusinessUnit`,`XYZ`) |
-
