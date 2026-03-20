@@ -47,7 +47,7 @@ module_dependencies:
 # yamllint disable rule:line-length
 description: |-
   This terraform module enforce MFA policy creation and enforcing on groups.
-  
+
 # How to use this project
 # yamllint disable rule:line-length
 usage: |-
@@ -61,8 +61,8 @@ usage: |-
       name          = "mfa"
       environment   = "test"
       users         = []
-      groups        = []     
-     
+      groups        = []
+
       }
-    
+
   ```

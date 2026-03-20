@@ -54,4 +54,3 @@ variable "users" {
   default     = []
   description = "enable MFA for these users"
 }
-
